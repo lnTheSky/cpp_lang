@@ -2,8 +2,8 @@
 #include <fstream>
 #include <iomanip>
 
-#define MAX_LEN_NAME      100
-#define MAX_LEN_AUTHOR    100
+#define MAX_LEN_NAME      50
+#define MAX_LEN_AUTHOR    50
 #define MAX_TRACKED_BOOKS 1000
 
 #define SAVE_FILENAME  "books.txt"
@@ -80,12 +80,12 @@ void showBooks() {
     }
 
     // Table header
-    cout << endl << "--- Tracked books ---" << endl;
+    cout << endl << "-------------- Tracked books --------------" << endl;
     cout << left << setw(12) << "Name" \
                  << setw(12) << "Author" \
                  << setw(12) << "Year" \
                  << setw(12) << "Rating" << endl;
-    cout << "---------------------" << endl;
+    cout << "-------------------------------------------" << endl;
 
     for (int i = 0; i < booksCount; i++) {
         cout << left << setw(12) << books[i].name \
@@ -106,14 +106,17 @@ void addBook() {
 
     cout << "Enter book name: ";
     cin >> setw(MAX_LEN_NAME) >> book.name;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "Enter book author: ";
     cin >> setw(MAX_LEN_AUTHOR) >> book.author;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "Enter book year: ";
     while (!(cin >> book.year)) {
         cout << "Wrong format! Try again" << endl;
         cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.sync();
         cout << "Enter book year: ";
     }
@@ -122,6 +125,7 @@ void addBook() {
     while (!(cin >> book.rating)) {
         cout << "Wrong format! Try again" << endl;
         cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.sync();
         cout << "Enter rating (0-10): ";
     }
@@ -152,7 +156,7 @@ int main() {
         while (!(cin >> menu_option) || cin.get() != '\n') {
             cout << endl << "Wrong option! Try again" << endl;
             cin.clear();
-            cin.ignore(1);
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin.sync();
             cout << "Choose option: ";
         }
