@@ -3,8 +3,8 @@
 #include <iomanip>
 #include <limits>
 
-#define MAX_LEN_NAME      5
-#define MAX_LEN_AUTHOR    5
+#define MAX_LEN_NAME      50
+#define MAX_LEN_AUTHOR    50
 #define MAX_TRACKED_BOOKS 1000
 
 #define SAVE_FILENAME  "books.txt"
@@ -108,6 +108,7 @@ void loadBooksFromFile(const char *filename) {
         safeReadWord(fin, tempBook.name, MAX_LEN_NAME);
         if (tempBook.name[0] == '\0') break;
 
+        // author
         safeReadWord(fin, tempBook.author, MAX_LEN_AUTHOR);
         if (tempBook.author[0] == '\0') break;
 
