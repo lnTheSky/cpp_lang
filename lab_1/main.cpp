@@ -3,8 +3,8 @@
 #include <iomanip>
 #include <limits>
 
-#define MAX_LEN_NAME      50
-#define MAX_LEN_AUTHOR    50
+#define MAX_LEN_NAME      5
+#define MAX_LEN_AUTHOR    5
 #define MAX_TRACKED_BOOKS 1000
 
 #define SAVE_FILENAME  "books.txt"
@@ -35,15 +35,97 @@ void saveBookToFile(const char *filename, Book book) {
     fout.close();
 }
 
+void safeReadWord(ifstream& fin, char* buffer, int maxSize) {
+    char ch;
+    int i = 0;
+    bool started = false;
+
+    while (fin.get(ch)) {
+        if (!isspace(ch)) {
+            started = true;
+            break;
+        }
+    }
+
+    if (!started) {
+        buffer[0] = '\0';
+        return;
+    }
+
+    do {
+        if (i < maxSize - 1) {
+            buffer[i++] = ch;
+        }
+    } while (fin.get(ch) && !isspace(ch));
+
+    buffer[i] = '\0';
+}
+
+bool safeReadInt(ifstream& fin, int &value) {
+    char buf[32];
+    safeReadWord(fin, buf, sizeof(buf));
+    if (buf[0] == '\0') return false;
+
+    int i = 0;
+    if (buf[0] == '-') i = 1;
+    for (; buf[i] != '\0'; i++) {
+        if (buf[i] < '0' || buf[i] > '9') {
+            return false;
+        }
+    }
+    value = atoi(buf);
+    return true;
+}
+
+bool safeReadFloat(ifstream& fin, float &value) {
+    char buf[32];
+    safeReadWord(fin, buf, sizeof(buf));
+    if (buf[0] == '\0') return false;
+
+    int i = 0;
+    int dotCount = 0;
+    if (buf[0] == '-') i = 1;
+    for (; buf[i] != '\0'; i++) {
+        if (buf[i] == '.') {
+            dotCount++;
+            if (dotCount > 1) return false;
+        } else if (buf[i] < '0' || buf[i] > '9') {
+            return false;
+        }
+    }
+    value = atof(buf);
+    return true;
+}
+
 void loadBooksFromFile(const char *filename) {
     ifstream fin(filename);
+    if (!fin) return;
 
-    if (!fin)
-        return;
+    while (booksCount < MAX_TRACKED_BOOKS) {
+        Book tempBook;
 
-    while (fin >> books[booksCount].name >> books[booksCount].author >> books[booksCount].year >> books[booksCount].rating)
-    {
-        booksCount++;
+        // name
+        safeReadWord(fin, tempBook.name, MAX_LEN_NAME);
+        if (tempBook.name[0] == '\0') break;
+
+        safeReadWord(fin, tempBook.author, MAX_LEN_AUTHOR);
+        if (tempBook.author[0] == '\0') break;
+
+        // year
+        if (!safeReadInt(fin, tempBook.year)) {
+            fin.ignore(numeric_limits<streamsize>::max(), ' ');
+            continue;
+        }
+
+        // rating
+        if (!safeReadFloat(fin, tempBook.rating)) {
+            fin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
+        fin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        books[booksCount++] = tempBook;
     }
 
     fin.close();
