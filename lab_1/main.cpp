@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <limits>
 
 #define MAX_LEN_NAME      50
 #define MAX_LEN_AUTHOR    50
