@@ -204,6 +204,10 @@ void addBook() {
         cout << "Enter book year: ";
     }
 
+    if (book.year < 1) {
+        cout << "WARNING! Too old book" << endl;
+    } 
+
     cout << "Enter rating (0-10): ";
     while (!(cin >> book.rating)) {
         cout << "Wrong format! Try again" << endl;
@@ -212,6 +216,8 @@ void addBook() {
         cin.sync();
         cout << "Enter rating (0-10): ";
     }
+
+    book.rating = min(max(book.rating, 0.0f), 10.0f);
 
     books[booksCount++] = book;
     saveBookToFile(SAVE_FILENAME, book);
