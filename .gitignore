@@ -1,0 +1,6 @@
+# Exclude Windows executables and object files
+*.exe
+*.obj
+
+# Exclude Linux object files
+*.o
