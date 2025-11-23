@@ -27,7 +27,7 @@ public:
     inline size_t getSize() const;
     inline size_t getCapacity() const;
 
-}
+};
 
 template<typename T>
 Array<T>::Array()
