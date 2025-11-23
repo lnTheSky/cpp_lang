@@ -4,3 +4,6 @@
 
 # Exclude Linux object files
 *.o
+
+# Exclude Visual Studio Code directory
+.vscode/
