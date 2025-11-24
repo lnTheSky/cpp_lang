@@ -15,7 +15,7 @@ public:
     Array();
     Array(size_t size);
     Array(const Array<T>& other);
-    Array& operator=(const Array<T> other);
+    Array& operator=(const Array<T>& other);
     ~Array();
 
     void pushBack(const T& element);
@@ -69,12 +69,11 @@ void Array<T>::swap(Array<T>& other)
     std::swap(size, other.size);
 }
 
-// Почему так? Функция, то есть оператор присваивания принимает не ссылку на массив, а уже временную копию массива
-// (был вызван Array<T>::Array(const Array<T>& other). Значит можно поменять данные между ними, а временная копия удалится)
 template<typename T>
-Array<T>& Array<T>::operator=(const Array<T> other)
+Array<T>& Array<T>::operator=(const Array<T>& other)
 {
-    swap(other);
+    Array<T> other_copy(other);
+    swap(other_copy);
     return *this;
 }
 
