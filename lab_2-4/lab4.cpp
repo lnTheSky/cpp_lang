@@ -38,12 +38,13 @@ void inputData(Array<Array<float>>& array)
     std::cout << "Enter readings per day count: ";
     std::cin >> readings;
 
-    for (int i = 0; i < readings; i++) {
+    for (int i = 0; i < days; i++) {
         Array<float> day;
 
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        
         std::cout << "Day " << i + 1 << ": ";
         std::cin >> day;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         array.pushBack(day);
     }
 }
@@ -61,18 +62,21 @@ float dayAverage(const Array<float>& array)
 
 float overallAverage(const Array<Array<float>>& array)
 {
-    float total_average = 0.0f;
-    for (size_t i = 0; i << array.getSize(); i++) {
-        float average = 0.0f;
+    float average = 0.0f;
+    int readings = 0;
+    for (size_t i = 0; i < array.getSize(); i++) {
 
         for (size_t j = 0; j < array[i].getSize(); j++) {
             average += array[i][j];
+            readings++;
         }
-
-        total_average += average / (float)array[i].getSize();
     }
 
-    return total_average / (float)array.getSize();
+    if (!readings) {
+        return 0;
+    }
+
+    return average / readings;
 }
 
 void showHotDays(const Array<Array<float>>& array)
@@ -84,7 +88,7 @@ void showHotDays(const Array<Array<float>>& array)
     for (int i = 0; i < array.getSize(); i++) {
         float day_avg = dayAverage(array[i]);
         if (day_avg > total_avg) {
-            std::cout << "Day " << i + 1 << " (average = " << day_avg << " )" << std::endl;
+            std::cout << "Day " << i + 1 << " (average = " << day_avg << ")" << std::endl;
         }
     }
 }
