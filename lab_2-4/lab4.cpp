@@ -26,25 +26,22 @@ int main()
 
 void inputData(Array<Array<float>>& array)
 {
-    int days;
-    std::cout << "Enter days count: ";
-    std::cin >> days;
+    std::string line;
 
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Enter days count: ";
+    std::getline(std::cin, line);
+    int days = std::stoi(line);
 
     array.resize(days);
 
-    int readings;
     std::cout << "Enter readings per day count: ";
-    std::cin >> readings;
+    std::getline(std::cin, line);
+    int readings = std::stoi(line);
 
     for (int i = 0; i < days; i++) {
         Array<float> day;
-
-        
         std::cout << "Day " << i + 1 << ": ";
         std::cin >> day;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         array.pushBack(day);
     }
 }

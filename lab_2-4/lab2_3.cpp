@@ -41,11 +41,11 @@ int main()
 
 void inputData(Array<float>& array)
 {
-    int size;
-    std::cout << "Enter readings count: ";
-    std::cin >> size;
+    std::string line;
 
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Enter readings count: ";
+    std::getline(std::cin, line);
+    int size = std::stoi(line);
 
     array.resize(size);
 
