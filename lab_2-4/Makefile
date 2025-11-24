@@ -2,17 +2,22 @@ CXX = g++
 
 CXXFLAGS = -O2
 
-TARGET = main
+TARGET1 = lab2_3
+TARGET2 = lab4
 
-SRC = main.cpp
+SRC1 = lab2_3.cpp
+SRC2 = lab4.cpp
 
-all: $(TARGET)
+all: $(TARGET1) $(TARGET2)
 
-$(TARGET): $(SRC)
+$(TARGET1): $(SRC1)
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+$(TARGET2): $(SRC2)
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET1) $(TARGET2)
 
 rebuild: clean all
 

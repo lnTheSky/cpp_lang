@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <string>
+#include <sstream>
 
 template<typename T>
 class Array {
@@ -67,8 +69,8 @@ void Array<T>::swap(Array<T>& other)
     std::swap(size, other.size);
 }
 
-// Почему так? Функция, то есть оператор присваивания принимает не ссылку на массив, а уже временную копию массива \
-   (был вызван Array<T>::Array(const Array<T>& other). Значит можно поменять данные между ними, а временная копия удалится)
+// Почему так? Функция, то есть оператор присваивания принимает не ссылку на массив, а уже временную копию массива
+// (был вызван Array<T>::Array(const Array<T>& other). Значит можно поменять данные между ними, а временная копия удалится)
 template<typename T>
 Array<T>& Array<T>::operator=(const Array<T> other)
 {
@@ -93,14 +95,18 @@ void Array<T>::pushBack(const T& element)
         T* new_data = new T[new_capacity];
 
         for (size_t i = 0; i < size; i++)
-            new_data[i] = data[i];
+            // // Надо обрабатывать через арифметику указателей
+            // new_data[i] = data[i];
+
+            *(new_data + i) = *(data + i);
 
         delete[] data;
         data = new_data;
         capacity = new_capacity;
     }
 
-    data[size] = element;
+    // data[size] = element;
+    *(data + size) = element;
     size++;
 }
 
@@ -121,13 +127,14 @@ void Array<T>::resize(size_t size)
         T* new_data = new T[size]();
         
         for (size_t i = 0; i < std::min(size, this->capacity); i++) {
-            new_data[i] = data[i];
+            // new_data[i] = data[i];
+            *(new_data + i) = *(data + i);
         }
 
         delete[] data;
 
         data = new_data;
-        this->size = min(this->size, size);
+        this->size = std::min(this->size, size);
         this->capacity = size;
     }
 }
@@ -144,25 +151,29 @@ void Array<T>::clear()
 template<typename T>
 T& Array<T>::at(int idx)
 {
-    return data[idx];
+    // return data[idx];
+    return *(data + idx);
 }
 
 template<typename T>
 const T& Array<T>::at(int idx) const
 {
-    return data[idx];
+    // return data[idx];
+    return *(data + idx);
 }
 
 template<typename T>
 T& Array<T>::operator[](int idx)
 {
-    return data[idx];
+    // return data[idx];
+    return *(data + idx);
 }
 
 template<typename T>
 const T& Array<T>::operator[](int idx) const
 {
-    return data[idx];
+    // return data[idx];
+    return *(data + idx);
 }
 
 template<typename T>
@@ -172,12 +183,31 @@ size_t Array<T>::getSize() const
 }
 
 template<typename T>
-std::ostream& operator<<(std::ostream& o, Array<T> arr)
+std::ostream& operator<<(std::ostream& o, const Array<T>& arr)
 {
     o << "{ ";
     for (size_t i = 0; i < arr.getSize(); i++) {
-        o << arr[i] << ", ";
+        // arr[i] -- перегрузка оператора индексирования, уже использует арифметику указателей
+        o << arr[i] << ' ';
     }
     o << '}';
     return o;
+}
+
+template<typename T>
+std::istream& operator>>(std::istream& i, Array<T>& arr)
+{
+    arr.clear();
+
+    std::string line;
+    if (!std::getline(i, line)) { return i; }
+
+    std::stringstream ss(line);
+
+    T element;
+    while (ss >> element) {
+        arr.pushBack(element);
+    }
+
+    return i;
 }
