@@ -1,6 +1,10 @@
 #include <iostream>
+#include <exception>
 
 #include "dynArray.h"
+
+#define DAYS_MAX     30
+#define READINGS_MAX 24
 
 void          inputData(Array<Array<float>>& array);
 float         dayAverage(const Array<float>& array);
@@ -32,16 +36,29 @@ void inputData(Array<Array<float>>& array)
     std::getline(std::cin, line);
     int days = std::stoi(line);
 
+    // Проверка, что дней не больше допустимого
+    if (days > DAYS_MAX) {
+        throw std::runtime_error("Supports only up to 30 days");
+    }
+
     array.resize(days);
 
     std::cout << "Enter readings per day count: ";
     std::getline(std::cin, line);
     int readings = std::stoi(line);
 
+    // Проверка, что измерений не больше допустимого
+    if (readings > READINGS_MAX) {
+        throw std::runtime_error("Supports only up to 24 readings");
+    }
+
     for (int i = 0; i < days; i++) {
         Array<float> day;
         std::cout << "Day " << i + 1 << ": ";
         std::cin >> day;
+        if (day.getSize() > READINGS_MAX) {
+            throw std::runtime_error("Supports only up to 24 readings");
+        }
         array.pushBack(day);
     }
 }
