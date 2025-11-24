@@ -3,6 +3,10 @@
 
 #include "dynArray.h"
 
+#define SENSOR_MAX 50
+#define SENSOR_MIN -50
+
+
 void          inputData(Array<float>& array);
 float         average(const Array<float>& array);
 float         minValue(const Array<float>& array);
@@ -23,6 +27,12 @@ int main()
     float avg = average(data);
     float min = minValue(data);
     float max = maxValue(data);
+
+    // Проверка, что измерения в допустимых пределах [ -50; 50 ]
+    if (min < SENSOR_MIN || max > SENSOR_MAX) {
+        std::cerr << "Sensor readings aren't valid" << std::endl;
+        return 1;
+    }
 
     std::cout << "Average value: " << avg << std::endl;
     std::cout << "Minimum: " << min << std::endl;
