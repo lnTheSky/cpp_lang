@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 template<typename T>
 class Array {
     size_t capacity;
@@ -167,4 +169,15 @@ template<typename T>
 size_t Array<T>::getSize() const
 {
     return size;
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& o, Array<T> arr)
+{
+    o << "{ ";
+    for (size_t i = 0; i < arr.getSize(); i++) {
+        o << arr[i] << ", ";
+    }
+    o << '}';
+    return o;
 }
