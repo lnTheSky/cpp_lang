@@ -84,4 +84,4 @@ void          showHotDays(const Array<Array<float>>& array);
 Также соблюдены все установленные ограничения измерений и магические числа этих ограничений определены в начале макросами.
 
 **Автор:** Райский Алексей, СКБ251
-**tg: @Alex_Beyond_Sky**
+**tg: [@Alex_Beyond_Sky](https://t.me/Alex_Beyond_Sky)**
