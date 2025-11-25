@@ -5,6 +5,8 @@
 
 #define DAYS_MAX     30
 #define READINGS_MAX 24
+#define SENSOR_MAX 50
+#define SENSOR_MIN -50
 
 void          inputData(Array<Array<float>>& array);
 float         dayAverage(const Array<float>& array);
@@ -58,6 +60,11 @@ void inputData(Array<Array<float>>& array)
         std::cin >> day;
         if (day.getSize() > READINGS_MAX) {
             throw std::runtime_error("Supports only up to 24 readings");
+        }
+        for (size_t i = 0; i < day.getSize(); i++) {
+            if (SENSOR_MAX < day[i] || SENSOR_MIN > day[i]) {
+                throw std::runtime_error("Sensor readings aren't valid");
+            }
         }
         array.pushBack(day);
     }
