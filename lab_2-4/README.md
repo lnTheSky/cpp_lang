@@ -15,7 +15,8 @@
 Для удобства работы с памятью и массивами в лабораторных работах 2-4 я решил написать свою собственную мини-библиотеку, которая реализует динамический массив `Array<T>`, с поддержкой любого типа данных благодаря шаблонному программированию.  
 
 Структура класса `Array`:
-<pre><code>template<typename T>
+```cpp
+template<typename T>
 class Array {
     size_t capacity;
     size_t size;
@@ -42,7 +43,8 @@ public:
     inline size_t getSize() const;
     inline size_t getCapacity() const;
 
-};</code></pre>
+};
+```
 
 #### Возможности `Array<T>`:
 
@@ -57,11 +59,13 @@ public:
 В ней я использовал для работы с памятью только свою написанную библиотеку, которая не является стандартной, со всеми реализациями управления динамической памятью, индексацией посредством арифметики указателей.
 
 Сигнатуры функций были немного отредактированы в соответствии с возможностями моей библиотеки `dynArray.h` и класса `Array`:
-<pre><code>void          inputData(Array<float>& array);
+```cpp
+void          inputData(Array<float>& array);
 float         average(const Array<float>& array);
 float         minValue(const Array<float>& array);
 float         maxValue(const Array<float>& array);
-Array<float>  filterAboveAverage(const Array<float>& array);</code></pre>
+Array<float>  filterAboveAverage(const Array<float>& array);
+```
 
 Были соблюдены ограничения по вводимым значениям, магические числа которых заданы макросами. Весь функционал был реализован, пользовательский ввод обрабатывается через получение строки и дальнейшего парсинга строки в нужный тип данных.
 
@@ -70,9 +74,11 @@ Array<float>  filterAboveAverage(const Array<float>& array);</code></pre>
 В ней также был задействован самодельный класс `Array` для работы с динамическими массивами.
 
 Для этого также были отредактированы сигнатуры основных функций:
-<pre><code>void          inputData(Array<Array<float>>& array);
+```cpp
+void          inputData(Array<Array<float>>& array);
 float         dayAverage(const Array<float>& array);
 float         overallAverage(const Array<Array<float>>& array);
-void          showHotDays(const Array<Array<float>>& array);</code></pre>
+void          showHotDays(const Array<Array<float>>& array);
+```
 
 Также соблюдены все установленные ограничения измерений и магические числа этих ограничений определены в начале макросами.
