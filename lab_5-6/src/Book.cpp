@@ -9,11 +9,11 @@ Book::Book(const std::string& title, const std::string& author, const int& year_
     : title(title), author(author), isbn(isbn), isAvailable(true), borrowedBy("")
 {
     const auto now = std::chrono::system_clock::now();
-    const auto today = std::chrono::floor<std::chrono::days>(now);
+    const std::chrono::sys_days today = std::chrono::floor<std::chrono::days>(now);
     const std::chrono::year_month_day ymd{today};
 
-    if (ymd.year() < year_ || year_ < MIN_YEAR) {
-        throw std::runtime_error("Invalid Book year!");
+    if (int(ymd.year()) < year_ || year_ < MIN_YEAR) {
+        throw std::runtime_error("Invalid Book year " + std::to_string(year_));
     }
 
     year = year_;
