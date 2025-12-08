@@ -20,11 +20,8 @@ Book::Book(const std::string& title, const std::string& author, const int& year_
 }
 
 Book::Book(const Book& other)
+    : title(other.title), author(other.author), year(other.year), isbn(other.isbn)
 {
-    title = other.title;
-    author = other.author;
-    year = other.year;
-    isbn = other.isbn;
     // Новая книга, никто не владеет
     isAvailable = true;
     borrowedBy = "";
