@@ -2,6 +2,7 @@
 #include <exception>
 #include <chrono>
 #include <format>
+#include <iostream>
 
 #define MIN_YEAR 1450
 
@@ -22,22 +23,22 @@ public:
 
     // Getter-методы для закрытых полей класса
     const std::string& getTitle() const;
-    std::string& getTitle();
+    // std::string& getTitle();
 
     const std::string& getAuthor() const;
-    std::string& getAuthor();
+    // std::string& getAuthor();
 
     const int& getYear() const;
-    int& getYear();
+    // int& getYear();
 
     const std::string& getISBN() const;
-    std::string& getISBN();
+    // std::string& getISBN();
 
     const bool& getIsAvailable() const;
-    bool& getIsAvailable();
+    // bool& getIsAvailable();
 
     const std::string& getBorrowedBy() const;
-    std::string& getBorrowedBy();
+    // std::string& getBorrowedBy();
 
     // Функциональные методы
     void borrowBook(const std::string& userName);

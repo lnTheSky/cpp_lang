@@ -35,20 +35,20 @@ const std::string& Book::getTitle() const
     return title;
 }
 
-std::string& Book::getTitle()
-{
-    return title;
-}
+// std::string& Book::getTitle()
+// {
+//     return title;
+// }
 
 const std::string& Book::getAuthor() const
 {
     return author;
 }
 
-std::string& Book::getAuthor()
-{
-    return author;
-}
+// std::string& Book::getAuthor()
+// {
+//     return author;
+// }
 
 const int& Book::getYear() const
 {
@@ -56,37 +56,62 @@ const int& Book::getYear() const
 }
 
 // Опасный метод, нужна проверка на выход за [1450, cur_year]
-int& Book::getYear()
-{
-    return year;
-}
+// int& Book::getYear()
+// {
+//     return year;
+// }
 
 const std::string& Book::getISBN() const
 {
     return isbn;
 }
 
-std::string& Book::getISBN()
-{
-    return isbn;
-}
+// std::string& Book::getISBN()
+// {
+//     return isbn;
+// }
 
 const bool& Book::getIsAvailable() const
 {
     return isAvailable;
 }
 
-bool& Book::getIsAvailable()
-{
-    return isAvailable;
-}
+// bool& Book::getIsAvailable()
+// {
+//     return isAvailable;
+// }
 
 const std::string& Book::getBorrowedBy() const
 {
     return borrowedBy;
 }
 
-std::string& Book::getBorrowedBy()
+// std::string& Book::getBorrowedBy()
+// {
+//     return borrowedBy;
+// }
+
+void Book::borrowBook(const std::string& userName)
 {
-    return borrowedBy;
+    if (isAvailable) {
+        isAvailable = false;
+        borrowedBy = userName;
+    }
+}
+
+void Book::returnBook()
+{
+    borrowedBy = "";
+    isAvailable = true;
+}
+
+void Book::displayInfo()
+{
+    std::cout << "--- Book Info ---" << std::endl;
+    std::cout << "Title: " << title << std::endl;
+    std::cout << "Author: " << author << std::endl;
+    std::cout << "Year: " << year << std::endl;
+    std::cout << "ISBN: " << isbn << std::endl;
+    std::cout << "Available: " << (isAvailable ? "yes" : "no") << std::endl;;
+    std::cout << "Borrowed by: " << borrowedBy << std::endl;
 }
