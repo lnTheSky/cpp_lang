@@ -1,3 +1,6 @@
+#ifndef BOOK_H
+#define BOOK_H
+
 #include <string>
 #include <exception>
 #include <chrono>
@@ -44,4 +47,6 @@ public:
     void borrowBook(const std::string& userName);
     void returnBook();
     void displayInfo();
-}
+};
+
+#endif
