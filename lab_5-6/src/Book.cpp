@@ -90,10 +90,12 @@ const std::string& Book::getBorrowedBy() const
 
 void Book::borrowBook(const std::string& userName)
 {
-    if (isAvailable) {
-        isAvailable = false;
-        borrowedBy = userName;
+    if (!isAvailable) {
+        throw std::runtime_error("Book is already borrowed by " + borrowedBy);
     }
+    
+    isAvailable = false;
+    borrowedBy = userName;
 }
 
 void Book::returnBook()
