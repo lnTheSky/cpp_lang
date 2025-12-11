@@ -59,7 +59,7 @@ void User::removeBook(const std::string& isbn)
     borrowedBooks.erase(std::find(borrowedBooks.begin(), borrowedBooks.end(), isbn));
 }
 
-void User::displayProfile()
+void User::displayProfile() const
 {
     std::cout << "--- User Info ---" << std::endl;
     std::cout << "Name: " << name << std::endl;

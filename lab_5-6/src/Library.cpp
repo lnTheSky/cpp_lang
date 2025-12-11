@@ -1,6 +1,5 @@
 #include "Library.h"
 
-
 // Обрезаем строку от лишних пробелов и т.д.
 static inline std::string trim(std::string s) {
     auto l = s.find_first_not_of(" \t\r\n");
@@ -28,7 +27,7 @@ static inline std::pair<std::string, std::string> splitKV(const std::string& lin
 
 
 Library::Library()
-    : dataFile("./data/library_data.txt")
+    : dataFile(DEFAULT_SAVE_PATH)
 {
 }
 
@@ -311,6 +310,7 @@ void Library::loadFromFile()
             }
 
             if (!ok) continue; // пропускаем невалидный User
+
             if (name.empty() || userId.empty() || maxBooks <= 0) continue;
 
             User u{name, userId, maxBooks};
