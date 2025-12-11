@@ -25,28 +25,28 @@ public:
     Book(const Book& other);
 
     // Getter-методы для закрытых полей класса
-    const inline std::string& getTitle() const;
+    inline const std::string& getTitle() const;
     // std::string& getTitle();
 
-    const inline std::string& getAuthor() const;
+    inline const std::string& getAuthor() const;
     // std::string& getAuthor();
 
-    const inline int& getYear() const;
+    inline const int& getYear() const;
     // int& getYear();
 
-    const inline std::string& getISBN() const;
+    inline const std::string& getISBN() const;
     // std::string& getISBN();
 
-    const inline bool& getIsAvailable() const;
+    inline const bool& getIsAvailable() const;
     // bool& getIsAvailable();
 
-    const inline std::string& getBorrowedBy() const;
+    inline const std::string& getBorrowedBy() const;
     // std::string& getBorrowedBy();
 
     // Функциональные методы
     void borrowBook(const std::string& userName);
     void returnBook();
-    void inline displayInfo();
+    inline void displayInfo() const;
 };
 
 #endif

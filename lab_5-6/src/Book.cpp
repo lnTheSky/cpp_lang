@@ -93,7 +93,7 @@ void Book::borrowBook(const std::string& userName)
     if (!isAvailable) {
         throw std::runtime_error("Book is already borrowed by " + borrowedBy);
     }
-    
+
     isAvailable = false;
     borrowedBy = userName;
 }
@@ -104,7 +104,7 @@ void Book::returnBook()
     isAvailable = true;
 }
 
-void Book::displayInfo()
+void Book::displayInfo() const
 {
     std::cout << "--- Book Info ---" << std::endl;
     std::cout << "Title: " << title << std::endl;
