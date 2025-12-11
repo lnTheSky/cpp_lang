@@ -111,4 +111,5 @@ void Book::displayInfo()
     std::cout << "ISBN: " << isbn << std::endl;
     std::cout << "Available: " << (isAvailable ? "yes" : "no") << std::endl;;
     std::cout << "Borrowed by: " << borrowedBy << std::endl;
+    std::cout << std::endl;
 }
