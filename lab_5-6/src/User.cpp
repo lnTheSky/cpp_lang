@@ -44,3 +44,29 @@ bool User::canBorrowMore() const
 {
     return borrowedBooks.size() < maxBooksAllowed; 
 }
+
+void User::addBook(const std::string& isbn)
+{
+    if (!canBorrowMore()) {
+        throw std::runtime_error("This user cannot borrow more books!");
+    }
+
+    borrowedBooks.push_back(isbn);
+}
+
+void User::removeBook(const std::string& isbn)
+{
+    borrowedBooks.erase(std::find(borrowedBooks.begin(), borrowedBooks.end(), isbn));
+}
+
+void User::displayProfile()
+{
+    std::cout << "--- User Info ---" << std::endl;
+    std::cout << "Name: " << name << std::endl;
+    std::cout << "UserID: " << userId << std::endl;
+    std::cout << "Borrowed books: ";
+    for (auto isbn : borrowedBooks) {
+        std::cout << isbn << " | ";
+    }
+    std::cout << std::endl << std::endl;
+}
