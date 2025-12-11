@@ -17,15 +17,15 @@ public:
     User(const std::string& name, const std::string& userId);
     User(const std::string& name, const std::string& userId, int maxBooksAllowed);
 
-    const std::string& getName() const;
-    const std::string& getUserId() const;
-    const std::vector<std::string>& getBorrowedBooks() const;
-    const int& getMaxBooksAllowed() const;
+    const inline std::string& getName() const;
+    const inline std::string& getUserId() const;
+    const inline std::vector<std::string>& getBorrowedBooks() const;
+    const inline int& getMaxBooksAllowed() const;
 
-    bool canBorrowMore() const;
+    bool inline canBorrowMore() const;
     void addBook(const std::string& isbn);
     void removeBook(const std::string& isbn);
-    void displayProfile();
+    void inline displayProfile();
 };
 
 #endif
