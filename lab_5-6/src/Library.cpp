@@ -259,10 +259,7 @@ void Library::loadFromFile()
 
             if (!(isAvailable == "yes" || isAvailable == "no")) continue;
 
-            Book b{title, author, year, isbn};
-            if (isAvailable == "no" && !borrowedBy.empty()) {
-                b.borrowBook(borrowedBy);
-            }
+            Book b(title, author, year, isbn, (isAvailable == "yes"), borrowedBy);
 
             books.push_back(std::move(b));
         }
