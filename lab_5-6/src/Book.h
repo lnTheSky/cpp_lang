@@ -22,6 +22,7 @@ public:
     // Конструкторы класса
     Book();
     Book(const std::string& title, const std::string& author, const int& year, const std::string& isbn);
+    Book(const std::string& title, const std::string& author, const int& year, const std::string& isbn, bool isAvailable, const std::string& borrowedBy);
     Book(const Book& other);
 
     // Getter-методы для закрытых полей класса
