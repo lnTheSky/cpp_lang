@@ -66,8 +66,8 @@ void Library::borrowBook(const std::string& userName, const std::string& isbn)
         throw std::runtime_error("User or book not found!");
     }
 
-    user->addBook(isbn);
     book->borrowBook(userName);
+    user->addBook(isbn);
 }
 
 void Library::returnBook(const std::string& isbn)
