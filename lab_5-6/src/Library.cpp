@@ -25,6 +25,21 @@ static inline std::pair<std::string, std::string> splitKV(const std::string& lin
     return { trim(line.substr(0, pos)), trim(line.substr(pos + 1)) };
 }
 
+struct SortByYear
+{
+    bool operator() (Book const &L, Book const &R) const { return L.getYear() < R.getYear(); }
+};
+
+struct SortByAuthor
+{
+    bool operator() (Book const &L, Book const &R) const { return L.getAuthor() < R.getAuthor(); }
+};
+
+struct SortByTitle
+{
+    bool operator() (Book const &L, Book const &R) const { return L.getTitle() < R.getTitle(); }
+};
+
 
 Library::Library()
     : dataFile(DEFAULT_SAVE_PATH)
@@ -342,4 +357,19 @@ void Library::findBooksByAuthor(const std::string& author) const
             book.displayInfo();
         }
     }
+}
+
+void Library::sortedByYear()
+{
+    std::sort(books.begin(), books.end(), SortByYear());
+}
+
+void Library::sortedByAuthor()
+{
+    std::sort(books.begin(), books.end(), SortByAuthor());
+}
+
+void Library::sortedByTitle()
+{
+    std::sort(books.begin(), books.end(), SortByTitle());
 }

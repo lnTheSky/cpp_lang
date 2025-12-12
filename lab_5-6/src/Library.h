@@ -37,6 +37,9 @@ public:
     void loadFromFile(const std::string& dataFile);
 
     void findBooksByAuthor(const std::string& author) const;
+    void sortedByYear();
+    void sortedByAuthor();
+    void sortedByTitle();
 };
 
 #endif

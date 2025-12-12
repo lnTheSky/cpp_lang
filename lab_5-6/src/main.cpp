@@ -1,3 +1,7 @@
+#ifdef PLATFORM_WIN
+#include <windows.h>
+#endif
+
 #include "Library.h"
 
 inline void showMenu() {
@@ -12,6 +16,9 @@ inline void showMenu() {
     std::cout << "8. Find books by Author"  << std::endl;
     std::cout << "9. Show user profile"     << std::endl;
     std::cout << "10. Save to file"         << std::endl;
+    std::cout << "11. Books sorted by Year" << std::endl;
+    std::cout << "12. Books sorted by Author"<< std::endl;
+    std::cout << "13. Books sorted by Title"<< std::endl;
     std::cout << "0. Exit"                  << std::endl;
 }
 
@@ -203,6 +210,10 @@ void showUserProfile(Library& lib) {
 
 
 int main() {
+    #ifdef PLATFORM_WIN
+    SetConsoleOutputCP(CP_UTF8);
+    #endif
+
     Library lib;
 
     try {
@@ -252,6 +263,18 @@ int main() {
                 break;
             case 10:
                 lib.saveToFile();
+                break;
+            case 11:
+                lib.sortedByYear();
+                lib.displayAllBooks();
+                break;
+            case 12:
+                lib.sortedByAuthor();
+                lib.displayAllBooks();
+                break;
+            case 13:
+                lib.sortedByTitle();
+                lib.displayAllBooks();
                 break;
             default:
                 std::cout << "Invalid choice" << std::endl;
