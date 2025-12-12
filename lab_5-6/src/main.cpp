@@ -14,6 +14,44 @@ inline void showMenu() {
     std::cout << "0. Exit"                  << std::endl;
 }
 
+inline int getYear() {
+    std::string input;
+    int choice;
+    bool ok = false;
+    while (!ok) {
+        std::cout << "Year: ";
+        if (!std::getline(std::cin, input)) continue;
+        try
+        {
+            choice = std::stoi(input);
+            ok = true;
+        }
+        catch(...)
+        {
+            std::cout << "Incorrect input, try again!" << std::endl;
+        }
+    }
+    return choice;
+}
+
+inline int getMaxBooks() {
+    std::string input;
+    int choice = 3;
+    bool ok = false;
+    std::cout << "Max books allowed (def 3): ";
+    if (!std::getline(std::cin, input)) return choice;
+    try
+    {
+        choice = std::stoi(input);
+        ok = true;
+    }
+    catch(...)
+    {
+        std::cout << "Incorrect input, set to 3!" << std::endl;
+    }
+    return choice;
+}
+
 inline int getChoice() {
     std::string input;
     int choice;
@@ -34,6 +72,121 @@ inline int getChoice() {
     return choice;
 }
 
+void addNewBook(Library& lib) {
+    std::string title, author, isbn;
+    int year;
+    
+    std::cout << "Title: ";
+    while (!std::getline(std::cin, title)) continue;
+
+    std::cout << "Author: ";
+    while (!std::getline(std::cin, author)) continue;
+
+    year = getYear();
+
+    std::cout << "ISBN: ";
+    while (!std::getline(std::cin, isbn)) continue;
+
+    try {
+        Book b(title, author, year, isbn);
+        lib.addBook(b);
+    }
+    catch (const std::exception& e) {
+        std::cout << "Add new book error: " << e.what() << std::endl;
+    }
+}
+
+void registerUser(Library& lib) {
+    std::string name, userId;
+    int maxBooksAllowed;
+
+    std::cout << "Name: ";
+    while (!std::getline(std::cin, name)) continue;
+
+    while (true) {
+        std::cout << "UserID (USR_*): ";
+        std::getline(std::cin, userId);
+        if (userId.starts_with("USR_")) {
+            break;
+        }
+        std::cout << "Incorrect format" << std::endl;
+    }
+
+    maxBooksAllowed = getMaxBooks();
+
+    try {
+        User user(name, userId, maxBooksAllowed);
+        lib.addUser(user);
+    }
+    catch (const std::exception& e) {
+        std::cout << "Register user error: " << e.what() << std::endl;
+    }
+}
+
+void borrowBookToUser(Library& lib) {
+    std::string name, isbn;
+
+    std::cout << "Name: ";
+    while (!std::getline(std::cin, name)) continue;
+
+    std::cout << "ISBN: ";
+    while (!std::getline(std::cin, isbn)) continue;
+
+    try {
+        lib.borrowBook(name, isbn);
+    }
+    catch (const std::exception& e) {
+        std::cout << "Borrow book to user error: " << e.what() << std::endl;
+    }
+}
+
+void returnBookFromUser(Library& lib) {
+    std::string isbn;
+
+    std::cout << "ISBN: ";
+    while (!std::getline(std::cin, isbn)) continue;
+
+    try {
+        lib.returnBook(isbn);
+    }
+    catch (const std::exception& e) {
+        std::cout << "Return book from user error: " << e.what() << std::endl;
+    }
+}
+
+void findBookByISBN(Library& lib) {
+    std::string isbn;
+
+    std::cout << "ISBN: ";
+    while (!std::getline(std::cin, isbn)) continue;
+
+    try {
+        Book* b = lib.findBookByISBN(isbn);
+        if (b != nullptr) b->displayInfo();
+        else std::cout << "Book not found!" << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cout << "Find book by ISBN error: " << e.what() << std::endl;
+    }
+}
+
+void showUserProfile(Library& lib) {
+    std::string name;
+
+    std::cout << "Name: ";
+    while (!std::getline(std::cin, name)) continue;
+
+    try {
+        User* user = lib.findUserByName(name);
+        if (user != nullptr) user->displayProfile();
+        else std::cout << "User not found!" << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cout << "Find user by name error: " << e.what() << std::endl;
+    }
+}
+
+
 int main() {
     Library lib;
 
@@ -44,40 +197,52 @@ int main() {
         std::cout << "An errror occured while trying to load from file: " << e.what() << std::endl;
     }
 
-    // Мейн ~~кун~~ луп
-    int choice;
-    while (true) {
-        showMenu();
-        choice = getChoice();
+    try {
+        // Мейн ~~кун~~ луп
+        int choice;
+        while (true) {
+            showMenu();
+            choice = getChoice();
+            std::cout << std::endl;
 
-        switch (choice) {
-        case 0:
-            return 0;
-        case 1:
-            lib.displayAllBooks();
-            break;
-        case 2:
-            lib.displayAllUsers();
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            break;
-        case 8:
-            break;
-        case 9:
-            lib.saveToFile();
-            break;
-        default:
-            std::cout << "Invalid choice" << std::endl;
-            break;
+            switch (choice) {
+            case 0:
+                return 0;
+            case 1:
+                lib.displayAllBooks();
+                break;
+            case 2:
+                lib.displayAllUsers();
+                break;
+            case 3:
+                addNewBook(lib);
+                break;
+            case 4:
+                registerUser(lib);
+                break;
+            case 5:
+                borrowBookToUser(lib);
+                break;
+            case 6:
+                returnBookFromUser(lib);
+                break;
+            case 7:
+                findBookByISBN(lib);
+                break;
+            case 8:
+                showUserProfile(lib);
+                break;
+            case 9:
+                lib.saveToFile();
+                break;
+            default:
+                std::cout << "Invalid choice" << std::endl;
+                break;
+            }
+            std::cout << std::endl;
         }
     }
-    
+    catch (const std::exception& e) {
+        std::cerr << "Unhandled exception: " << e.what() << std::endl;
+    }
 }

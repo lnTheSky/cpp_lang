@@ -1,0 +1,16 @@
+BOOK
+Title: Test Book
+Author: Authorities
+Year: 1450
+ISBN: 123-123-123
+Available: no
+BorrowedBy: Sailor Moon
+
+---USERS---
+
+USER
+Name: Sailor Moon
+UserID: USR_001
+BorrowedBooks: 123-123-123
+MaxBooks: 3
+
