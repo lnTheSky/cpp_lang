@@ -334,3 +334,12 @@ void Library::loadFromFile(const std::string& dataFile)
     this->dataFile = dataFile;
     loadFromFile();
 }
+
+void Library::findBooksByAuthor(const std::string& author) const
+{
+    for (const auto& book : books) {
+        if (book.getAuthor() == author) {
+            book.displayInfo();
+        }
+    }
+}

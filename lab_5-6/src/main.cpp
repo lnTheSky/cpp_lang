@@ -9,8 +9,9 @@ inline void showMenu() {
     std::cout << "5. Borrow book to user"   << std::endl;
     std::cout << "6. Return book from user" << std::endl;
     std::cout << "7. Find book by ISBN"     << std::endl;
-    std::cout << "8. Show user profile"     << std::endl;
-    std::cout << "9. Save to file"          << std::endl;
+    std::cout << "8. Find books by Author"  << std::endl;
+    std::cout << "9. Show user profile"     << std::endl;
+    std::cout << "10. Save to file"         << std::endl;
     std::cout << "0. Exit"                  << std::endl;
 }
 
@@ -170,6 +171,20 @@ void findBookByISBN(Library& lib) {
     }
 }
 
+void findBooksByAuthor(Library& lib) {
+    std::string author;
+
+    std::cout << "Author: ";
+    while (!std::getline(std::cin, author)) continue;
+
+    try {
+        lib.findBooksByAuthor(author);
+    }
+    catch (const std::exception& e) {
+        std::cout << "Find books by author error: " << e.what() << std::endl;
+    }
+}
+
 void showUserProfile(Library& lib) {
     std::string name;
 
@@ -230,9 +245,12 @@ int main() {
                 findBookByISBN(lib);
                 break;
             case 8:
-                showUserProfile(lib);
+                findBooksByAuthor(lib);
                 break;
             case 9:
+                showUserProfile(lib);
+                break;
+            case 10:
                 lib.saveToFile();
                 break;
             default:

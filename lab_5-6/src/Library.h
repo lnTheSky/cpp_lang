@@ -35,6 +35,8 @@ public:
     void saveToFile(const std::string& dataFile);
     void loadFromFile();
     void loadFromFile(const std::string& dataFile);
+
+    void findBooksByAuthor(const std::string& author) const;
 };
 
 #endif

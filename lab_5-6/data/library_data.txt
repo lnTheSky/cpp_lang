@@ -14,3 +14,9 @@ UserID: USR_001
 BorrowedBooks: 123-123-123
 MaxBooks: 3
 
+USER
+Name: 123
+UserID: USR_1
+BorrowedBooks: 
+MaxBooks: 1
+
