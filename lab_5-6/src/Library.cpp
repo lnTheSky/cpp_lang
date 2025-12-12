@@ -182,8 +182,13 @@ void Library::loadFromFile()
     while (std::getline(in, line)) {
         line = trim(line);
 
-        if (line.empty() || line == "---USERS---") continue;
-        
+        if (line.empty()) continue;
+
+        if (line == "---USERS---") {
+            in_user = true;
+            continue;
+        }
+
         if (!in_user) {
             if (line != "BOOK") continue;
 
