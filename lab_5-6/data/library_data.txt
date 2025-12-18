@@ -3,7 +3,7 @@ Title: Война и мир
 Author: Лев Толстой
 Year: 1869
 ISBN: 978-5-17-70490-8
-Available: yes
+Available: no
 BorrowedBy: 
 
 BOOK

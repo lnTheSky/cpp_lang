@@ -54,14 +54,10 @@ namespace ProcessControlBlock
     };
 
     // Я бы сделал структурой
-    class ListNode
+    struct ListNode
     {
         PCB       data;
         ListNode* next;
-    public:
-        explicit ListNode(const PCB& data, ListNode* nextNode);
-
-        friend class ProcessList;
     };
 
     class ProcessList
